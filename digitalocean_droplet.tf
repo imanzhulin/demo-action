@@ -4,7 +4,7 @@ data "digitalocean_ssh_key" "example" {
 
 resource "digitalocean_droplet" "do_droplet" {
     image    = "docker-20-04"
-    name     = "testing-terraform"
+    name     = "test_droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
     ssh_keys = [data.digitalocean_ssh_key.example.id]
