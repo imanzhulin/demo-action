@@ -1,5 +1,3 @@
-variable "do_token" {}
-
 terraform {
   required_providers {
     digitalocean = {
