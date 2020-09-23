@@ -7,7 +7,7 @@ resource "digitalocean_droplet" "do_droplet" {
     name     = "test_droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
-    ssh_keys = [data.digitalocean_ssh_key.example.id]
+    ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
     tags     = ["test"]
 }
 
