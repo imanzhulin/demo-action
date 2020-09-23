@@ -14,6 +14,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.TF_VAR_DO_TOKEN }}
+
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -23,16 +28,12 @@ jobs:
       run: terraform --version
 
     - name: Terraform init
-      env:
-        TF_VAR_DO_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }}
       run: terraform init -input=false
 
     - name: Terraform validation
       run: terraform validate
 
     - name: Plan and Apply Terraform changes
-      env:
-        TF_VAR_DO_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }}
       run: | 
         terraform plan
         terraform apply -auto-approve -input=false
