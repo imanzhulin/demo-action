@@ -13,11 +13,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.12.25
+        terraform_version: 0.13.3
 
     - name: Verify Terraform version
       run: terraform --version
