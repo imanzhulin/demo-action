@@ -1,0 +1,20 @@
+data "digitalocean_ssh_key" "example" {
+  name = "do-ivan-host"
+}
+
+resource "digitalocean_droplet" "do_droplet" {
+    image    = "docker-20-04"
+    name     = "testing-terraform"
+    region   = "ams3"
+    size     = "s-1vcpu-1gb"
+    ssh_keys = [data.digitalocean_ssh_key.example.id]
+    tags     = ["test"]
+}
+
+resource "digitalocean_project" "infra" {
+  name        = "infra"
+  description = "Infrastructure: Terraform, Ansible, GitHub Actions"
+  purpose     = "Operational / Developer tooling"
+  resources   = [digitalocean_droplet.do_droplet.urn]
+}
+
