@@ -30,10 +30,9 @@ jobs:
     - name: Terraform validation
       run: terraform validate
 
-    - name: Plan Terraform changes
-      run: terraform plan
-
-    - name: Terraform apply
+    - name: Plan and Apply Terraform changes
       env:
         TF_VAR_DO_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }}
-      run: terraform apply -auto-approve -input=false
+      run: | 
+        terraform plan
+        terraform apply -auto-approve -input=false
