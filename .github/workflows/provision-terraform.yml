@@ -1,0 +1,22 @@
+name: Provision Terraform
+
+on:
+  push:
+    branches: [ terraform ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.25
+
+    - name: Verify Terraform version
+      run: terraform --version
