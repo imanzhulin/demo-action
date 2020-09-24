@@ -3,7 +3,7 @@
 #}
 
 # Create a new SSH key
-resource "digitalocean_ssh_key" "default" {
+resource "digitalocean_ssh_key" "example" {
   name       = "Terraform GH Action"
   public_key = file(".ssh/do.pub")
 }
