@@ -4,7 +4,7 @@
 
 # Create a new SSH key
 resource "digitalocean_ssh_key" "example" {
-  name       = "Terraform GH Action"
+  name       = "tf-gh-action"
   public_key = file(".ssh/tf.pub")
 }
 
