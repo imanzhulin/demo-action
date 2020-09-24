@@ -1,5 +1,11 @@
-data "digitalocean_ssh_key" "example" {
-  name = "do-ivan-host"
+#data "digitalocean_ssh_key" "example" {
+  #name = "do-ivan-host"
+#}
+
+# Create a new SSH key
+resource "digitalocean_ssh_key" "default" {
+  name       = "Terraform GH Action"
+  public_key = file(".ssh/do.pub")
 }
 
 resource "digitalocean_droplet" "do_droplet" {
@@ -7,7 +13,7 @@ resource "digitalocean_droplet" "do_droplet" {
     name     = "test_droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
-    ssh_keys = [data.digitalocean_ssh_key.example.id]
+    ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
     tags     = ["test"]
 }
 
