@@ -36,7 +36,6 @@ jobs:
     - name: Terraform validation
       run: terraform validate
 
-    - name: Plan and Apply Terraform changes
+    - name: Destroy Terraform changes
       run: | 
-        terraform plan
-        terraform apply -auto-approve -input=false -var-file="digitalocean.tfvars"
+        terraform destroy -auto-approve -input=false -var-file="digitalocean.tfvars"
