@@ -17,6 +17,5 @@ terraform {
 
 provider "digitalocean" {
   # Configuration options
-  ssh_fingerprint = var.ssh_fingerprint
   token = var.do_token
 }
