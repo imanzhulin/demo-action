@@ -1,1 +1,0 @@
-ssh_fingerprint = "b7:9b:50:1e:c5:5a:b2:5e:59:53:bd:56:85:ab:65:a4"

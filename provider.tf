@@ -1,3 +1,11 @@
+variable "ssh_fingerprint" {
+  default = ""
+}
+
+variable "do_token" {
+  default = ""
+}
+
 terraform {
   required_providers {
     digitalocean = {
@@ -9,4 +17,6 @@ terraform {
 
 provider "digitalocean" {
   # Configuration options
+  ssh_fgp = var.ssh_fingerprint
+  token = var.do_token
 }

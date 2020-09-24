@@ -39,4 +39,4 @@ jobs:
     - name: Plan and Apply Terraform changes
       run: | 
         terraform plan
-        terraform apply -auto-approve -input=false
+        terraform apply -auto-approve -input=false -var-file="digitalocean.tfvars"

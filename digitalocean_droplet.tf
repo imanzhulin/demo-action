@@ -7,7 +7,7 @@ resource "digitalocean_droplet" "do_droplet" {
     name     = "test_droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
-    ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
+    ssh_keys = [data.digitalocean_ssh_key.example.id]
     tags     = ["test"]
 }
 
@@ -17,4 +17,3 @@ resource "digitalocean_project" "infra" {
   purpose     = "Operational / Developer tooling"
   resources   = [digitalocean_droplet.do_droplet.urn]
 }
-
