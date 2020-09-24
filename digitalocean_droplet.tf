@@ -8,9 +8,9 @@ resource "digitalocean_ssh_key" "example" {
   public_key = file(".ssh/tf.pub")
 }
 
-resource "digitalocean_droplet" "do_droplet" {
+resource "digitalocean_droplet" "do-droplet" {
     image    = "docker-20-04"
-    name     = "test_droplet"
+    name     = "test-droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
     ssh_keys = [digitalocean_ssh_key.example.fingerprint]
@@ -21,5 +21,5 @@ resource "digitalocean_project" "infra" {
   name        = "infra"
   description = "Infrastructure: Terraform, Ansible, GitHub Actions"
   purpose     = "Operational / Developer tooling"
-  resources   = [digitalocean_droplet.do_droplet.urn]
+  resources   = [digitalocean_droplet.do-droplet.urn]
 }
