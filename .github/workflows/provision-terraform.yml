@@ -9,7 +9,7 @@ on:
 jobs:
   
   build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, tf]
     
     steps:
     - name: Checkout code
@@ -23,10 +23,8 @@ jobs:
     - name: Check SSH keys in doctl
       run: doctl compute ssh-key list
 
-    - name: Setup Terraform
-      uses: autero1/action-terraform@v0.1.0
-      with:
-        terraform_version: 0.12.20
+    - name: Install Terraform
+      uses: little-core-labs/install-terraform@v1
 
     - name: Verify Terraform version
       run: terraform --version
