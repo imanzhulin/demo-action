@@ -1,0 +1,50 @@
+- hosts: do-droplets
+  tasks:
+    - name: Make sure we have a 'sudo' group
+      group:
+        name: sudo
+        state: present
+
+    - name: Allow 'sudo' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Add sudoers users to sudo and docker group
+      user:
+        name=sammy
+        groups=sudo,docker
+        append=yes
+        state=present
+        shell=/bin/bash
+        createhome=yes
+
+    - name: Ensure directory exists for local self-signed TLS certs.
+      file:
+        path: /home/sammy/ssl
+        state: directory
+        owner: sammy
+
+    - name: Generate an OpenSSL key
+      openssl_privatekey:
+        path: /home/sammy/ssl/server.key
+        size: 2048
+        type: RSA
+        mode: 0666
+
+    - name: Generate an OpenSSL CSR
+      openssl_csr:
+        path: /home/sammy/ssl/server.csr
+        privatekey_path: /home/sammy/ssl/server.key
+        common_name: viking-2
+
+    - name: Generate an OpenSSL certificate
+      openssl_certificate:
+        path: /home/sammy/ssl/server.cer
+        privatekey_path: /home/sammy/ssl/server.key
+        csr_path: /home/sammy/ssl/server.csr
+        mode: 0666
+        provider: selfsigned
