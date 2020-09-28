@@ -30,15 +30,17 @@ jobs:
       run: terraform --version
 
     - name: Terraform init
-      run: terraform init -input=false
+      run: terraform init
 
     - name: Terraform validation
       run: terraform validate
 
     - name: Plan and Apply Terraform changes
       run: | 
-        terraform plan
-        terraform apply -auto-approve
+        terraform plan -var "do_token=${{ env.DIGITALOCEAN_TOKEN }}"
+        terraform apply -auto-approve -var "do_token=${{ env.DIGITALOCEAN_TOKEN }}"
+      env:
+        DIGITALOCEAN_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }} 
 
     - name: Update Ansible hosts file
       run: | 

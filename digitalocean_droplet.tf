@@ -1,11 +1,6 @@
-#data "digitalocean_ssh_key" "example" {
-  #name = "do-ivan-host"
-#}
-
-# Create a new SSH key
-resource "digitalocean_ssh_key" "example" {
-  name       = "tf-gh-action"
-  public_key = file(".ssh/tf.pub")
+# Use SSH key that already provisioned
+data "digitalocean_ssh_key" "example" {
+  name = "do-ivan-host"
 }
 
 resource "digitalocean_droplet" "do-droplet" {
@@ -13,7 +8,7 @@ resource "digitalocean_droplet" "do-droplet" {
     name     = "test-droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
-    ssh_keys = [digitalocean_ssh_key.example.fingerprint]
+    ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
     tags     = ["test"]
 }
 
