@@ -1,11 +1,11 @@
-# Use SSH key that already provisioned
+# Use SSH key that was already provisioned
 data "digitalocean_ssh_key" "example" {
   name = "do-ivan-host"
 }
 
 resource "digitalocean_droplet" "do-droplet" {
     image    = "docker-20-04"
-    name     = "test-droplet"
+    name     = "test-integrator-droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
     ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
@@ -13,7 +13,7 @@ resource "digitalocean_droplet" "do-droplet" {
 }
 
 resource "digitalocean_project" "infra" {
-  name        = "infra"
+  name        = "infrastructure"
   description = "Infrastructure: Terraform, Ansible, GitHub Actions"
   purpose     = "Operational / Developer tooling"
   resources   = [digitalocean_droplet.do-droplet.urn]
