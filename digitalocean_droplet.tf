@@ -1,4 +1,4 @@
-# Use SSH key that was already provisioned
+# Use an SSH key that was already provisioned
 data "digitalocean_ssh_key" "example" {
   name = "do-ivan-host"
 }
