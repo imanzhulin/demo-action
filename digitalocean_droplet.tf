@@ -14,7 +14,7 @@ resource "digitalocean_droplet" "do-droplet" {
 
 resource "digitalocean_project" "infra" {
   name        = "infrastructure"
-  description = "Infrastructure: Terraform, Ansible, GitHub Actions"
+  description = "Infrastructure: Use Terraform, Ansible, GitHub Actions"
   purpose     = "Operational / Developer tooling"
   resources   = [digitalocean_droplet.do-droplet.urn]
 }
