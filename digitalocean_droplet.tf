@@ -1,5 +1,5 @@
 # Use an SSH key that was already provisioned
-data "digitalocean_ssh_key" "example" {
+data "digitalocean_ssh_key" "key" {
   name = "do-ivan-host"
 }
 
@@ -8,7 +8,7 @@ resource "digitalocean_droplet" "do-droplet" {
     name     = "test-integrator-droplet"
     region   = "ams3"
     size     = "s-1vcpu-1gb"
-    ssh_keys = [data.digitalocean_ssh_key.example.fingerprint]
+    ssh_keys = [data.digitalocean_ssh_key.key.fingerprint]
     tags     = ["test"]
 }
 

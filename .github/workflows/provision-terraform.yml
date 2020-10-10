@@ -30,7 +30,7 @@ jobs:
       run: terraform --version
 
     - name: Terraform init
-      run: terraform init
+      run: terraform init --backend-config="access_key=${{ secrets.SPACES_ACCESS_KEY }}" --backend-config="secret_key=${{ secrets.SPACES_SECRET_KEY }}"
 
     - name: Terraform validation
       run: terraform validate
