@@ -12,17 +12,26 @@ resource "digitalocean_droplet" "do-droplet" {
     tags     = ["test"]
 }
 
+resource "digitalocean_droplet" "do-droplet-2" {
+    image    = "docker-20-04"
+    name     = "test-integrator-droplet-2"
+    region   = "ams3"
+    size     = "s-1vcpu-1gb"
+    ssh_keys = [data.digitalocean_ssh_key.key.fingerprint]
+    tags     = ["test"]
+}
+
 resource "digitalocean_project" "infra" {
   name        = "infrastructure"
   description = "Infrastructure: Use Terraform, Ansible, GitHub Actions"
   purpose     = "Operational / Developer tooling"
-  resources   = [digitalocean_droplet.do-droplet.urn]
+  resources   = [digitalocean_droplet.do-droplet.urn, digitalocean_droplet.do-droplet-2.urn]
 }
 
 resource "digitalocean_firewall" "do-droplet" {
   name = "allow-ssh-http-https"
 
-  droplet_ids = [digitalocean_droplet.do-droplet.id]
+  droplet_ids = [digitalocean_droplet.do-droplet.id, digitalocean_droplet.do-droplet-2.id]
 
   inbound_rule {
     protocol         = "tcp"
