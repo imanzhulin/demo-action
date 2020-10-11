@@ -42,7 +42,14 @@ jobs:
         terraform plan -var "do_token=${{ env.DIGITALOCEAN_TOKEN }}"
         terraform apply -auto-approve -var "do_token=${{ env.DIGITALOCEAN_TOKEN }}"
       env:
-        DIGITALOCEAN_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }} 
+        DIGITALOCEAN_TOKEN: ${{ secrets.TF_VAR_DO_TOKEN }}
+        
+    - name: Update Ansible hosts file
+      run: | 
+        DO_IPV4=`terraform output -json droplet_ipv4 | tr -d []`
+        sed -i "2s/#hosts/$DO_IPV4/" ansible/hosts
+        sed -i "s/,/\n/g" ansible/hosts
+
 
     - name: Run Ansible
       uses: ./.github/actions/ansible
