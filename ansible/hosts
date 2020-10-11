@@ -1,5 +1,6 @@
 [do-droplets]
-#hosts
+"167.172.41.247",
+"167.172.33.219",
 
 [do-droplets:vars]
 ansible_ssh_user=root
